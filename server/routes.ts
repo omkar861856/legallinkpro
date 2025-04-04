@@ -11,10 +11,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // Validate the request body against the schema
       const validatedData = insertInquirySchema.parse(req.body);
-      
+
       // Store the inquiry in the database
       const inquiry = await storage.createInquiry(validatedData);
-      
+
       // Return success response
       res.status(201).json({
         message: "Inquiry submitted successfully",
@@ -50,6 +50,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
+  // create this server only in development mode
 
   const httpServer = createServer(app);
   return httpServer;
